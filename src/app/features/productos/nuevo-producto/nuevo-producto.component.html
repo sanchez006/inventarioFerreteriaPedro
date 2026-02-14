@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Agregar producto</h2>
+  <form (ngSubmit)="submit()">
+    <div>
+      <label>Nombre</label>
+      <input [(ngModel)]="nombre" name="nombre" required />
+    </div>
+    <div>
+      <label>Descripcion</label>
+      <input [(ngModel)]="descripcion" name="descripcion" />
+    </div>
+    <div>
+      <label>Precio compra</label>
+      <input type="number" [(ngModel)]="precio_compra" name="precio_compra" />
+    </div>
+    <div>
+      <label>Precio venta</label>
+      <input type="number" [(ngModel)]="precio_venta" name="precio_venta" />
+    </div>
+    <div>
+      <label>Cantidad</label>
+      <input type="number" [(ngModel)]="cantidad" name="cantidad" />
+    </div>
+    <div>
+      <label>Stock minimo</label>
+      <input type="number" [(ngModel)]="stock_minimo" name="stock_minimo" />
+    </div>
+    <button type="submit">Crear</button>
+  </form>
+</div>
