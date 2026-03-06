@@ -26,7 +26,7 @@ export class LoginComponent {
     this.auth.login(this.username, this.password).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/dashboard']); // Redirige al dashboard después del login
+        this.router.navigate(['/menu']); // Redirige al menú principal después del login
       },
       error: (err: any) => {
         this.loading = false;

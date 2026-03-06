@@ -1,0 +1,103 @@
+<div class="presupuestos-tarjeta">
+  <div class="presupuestos-header">
+    <button routerLink="/menu" class="btn-menu">Menú principal</button>
+    <h2>Presupuestos</h2>
+  </div>
+  <div class="presupuestos-body">
+    <form (ngSubmit)="guardarPresupuesto()" class="form-tarjeta">
+      <h3 class="titulo-form">Nuevo presupuesto</h3>
+      <div class="campo-form">
+        <label for="cliente">Cliente</label>
+        <input [(ngModel)]="cliente" name="cliente" id="cliente" required placeholder="Nombre del cliente" />
+      </div>
+      <div class="presupuesto-items">
+        <!-- Tabla en escritorio, tarjetas en móvil -->
+        <table class="tabla-items" *ngIf="presupuestoItems.length && !isMobile()">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio unitario</th>
+              <th>Subtotal</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of presupuestoItems; let i = index">
+              <td>
+                <select [(ngModel)]="item.producto_id" name="producto{{i}}" required (change)="actualizarProducto(i)">
+                  <option value="" disabled>Selecciona producto</option>
+                  <option *ngFor="let p of productos" [value]="p.id">{{p.nombre}}</option>
+                </select>
+              </td>
+              <td><input type="number" [(ngModel)]="item.cantidad" name="cantidad{{i}}" min="1" required></td>
+              <td><input type="number" [(ngModel)]="item.precio_unitario" name="precio{{i}}" min="0" readonly></td>
+              <td>{{item.cantidad * item.precio_unitario | currency:'Q':'symbol':'1.2-2':'es-GT'}}</td>
+              <td><button type="button" class="btn-eliminar" (click)="eliminarItem(i)">Eliminar</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="items-lista" *ngIf="presupuestoItems.length && isMobile()">
+          <div class="item-tarjeta" *ngFor="let item of presupuestoItems; let i = index">
+            <div class="item-campo">
+              <label>Producto</label>
+              <select [(ngModel)]="item.producto_id" name="producto{{i}}" required (change)="actualizarProducto(i)">
+                <option value="" disabled>Selecciona producto</option>
+                <option *ngFor="let p of productos" [value]="p.id">{{p.nombre}}</option>
+              </select>
+            </div>
+            <div class="item-campo">
+              <label>Cantidad</label>
+              <input type="number" [(ngModel)]="item.cantidad" name="cantidad{{i}}" min="1" required>
+            </div>
+            <div class="item-campo">
+              <label>Precio unitario</label>
+              <input type="number" [(ngModel)]="item.precio_unitario" name="precio{{i}}" min="0" readonly>
+            </div>
+            <div class="item-campo">
+              <label>Subtotal</label>
+              <span>{{item.cantidad * item.precio_unitario | currency:'Q':'symbol':'1.2-2':'es-GT'}}</span>
+            </div>
+            <div class="item-campo item-eliminar">
+              <button type="button" class="btn-eliminar" (click)="eliminarItem(i)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!presupuestoItems.length" class="vacio">Agrega productos al presupuesto.</div>
+        <button type="button" class="btn-agregar" (click)="agregarItem()">Agregar producto</button>
+      </div>
+      <div class="presupuesto-resumen">
+        <strong>Total: {{calcularTotal() | currency:'Q':'symbol':'1.2-2':'es-GT'}}</strong>
+      </div>
+      <button type="submit" class="btn-registrar">Guardar presupuesto</button>
+    </form>
+    <div *ngIf="mensaje" class="mensaje">{{mensaje}}</div>
+    <hr />
+    <h3 class="titulo-historial">Historial de presupuestos</h3>
+    <div class="filtros-historial">
+      <input type="text" [(ngModel)]="filtroCliente" placeholder="Buscar por cliente..." style="width: 100%; max-width: 300px; margin-bottom: 0.5rem;" />
+    </div>
+    <table class="tabla-presupuestos" *ngIf="historialPagina.length">
+      <tbody>
+        <tr *ngFor="let p of historialPagina">
+          <td data-label="Cliente">{{p.cliente}}</td>
+          <td data-label="Fecha">{{p.fecha | date:'yyyy-MM-dd'}}</td>
+          <td data-label="Usuario">{{p.usuario || '—'}}</td>
+          <td data-label="Total">{{p.total | currency:'Q':'symbol':'1.2-2':'es-GT'}}</td>
+          <td data-label="PDF">
+            <button (click)="descargarPDF(p)" class="btn-descargar">
+              <span class="material-icons">download</span> PDF
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="historialFiltrado.length > presupuestosPorPagina" class="paginacion-historial">
+      <button (click)="cambiarPagina(-1)" [disabled]="paginaActual === 1">Anterior</button>
+      <span>Página {{paginaActual}} de {{totalPaginas}}</span>
+      <button (click)="cambiarPagina(1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+    </div>
+    <div *ngIf="!historialFiltrado.length" class="vacio">No hay presupuestos guardados aún.</div>
+    <div *ngIf="!historial.length" class="vacio">No hay presupuestos guardados aún.</div>
+  </div>
+</div>

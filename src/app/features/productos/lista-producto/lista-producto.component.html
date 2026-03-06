@@ -1,29 +1,107 @@
-<h1 class="text-center">Lista de productos</h1>
-<table class="table">
+<div class="productos-tarjeta">
+  <div class="productos-header">
+    <button routerLink="/menu" class="btn-menu">Menú principal</button>
+    <h1 class="titulo"><span class="material-icons">inventory_2</span> Lista de productos</h1>
+  </div>
+  <div class="busqueda-bar">
+    <span class="material-icons">search</span>
+    <input type="text" [(ngModel)]="filtro" placeholder="Buscar por nombre, categoría o proveedor..." class="form-control" />
+  </div>
+  <div class="tabla-responsive">
+  <table class="productos-table">
     <thead>
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Descripcion</th>
-        <th scope="col">precio Compra</th>
-        <th scope="col">Precio Venta</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">categoria</th>
-        <th scope="col">proveedor</th>
-        <th scope="col">fecha de Creacion</th>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Precio Compra</th>
+        <th>Precio Venta</th>
+        <th>Cantidad</th>
+        <th>Categoría</th>
+        <th>Proveedor</th>
+        <th>Fecha de Creación</th>
+        <th>Acciones</th>
       </tr>
     </thead>
-        <tbody>
-            <tr *ngFor="let producto of productos" >
-               <td>{{producto.id}}</td>
-               <td>{{producto.nombre}}</td>
-               <td>{{producto.descripcion}}</td>
-               <td>{{producto.precio_compra || producto.precioCompra || producto.preciocompra}}</td>
-               <td>{{producto.precio_venta || producto.precioVenta || producto.precioventa}}</td>
-               <td>{{producto.cantidad}}</td>
-               <td>{{producto.categoria || producto.categoria_id || producto.categoriaid}}</td>
-               <td>{{producto.proveedor || producto.proveedor_id || producto.proveedorid}}</td>
-               <td>{{producto.fecha || producto.fecha_creacion || producto.fechacreacion}}</td>
-            </tr>
-        </tbody>
+    <tbody>
+      <tr *ngFor="let producto of productosPagina">
+        <td>{{producto.id}}</td>
+        <td>{{producto.nombre}}</td>
+        <td>{{producto.descripcion}}</td>
+        <td>{{producto.precio_compra || producto.precioCompra || producto.preciocompra}}</td>
+        <td>{{producto.precio_venta || producto.precioVenta || producto.precioventa}}</td>
+        <td>{{producto.cantidad}}</td>
+        <td>{{producto.categoria || producto.categoria_id || producto.categoriaid}}</td>
+        <td>{{producto.proveedor || producto.proveedor_id || producto.proveedorid}}</td>
+        <td>{{producto.fecha || producto.fecha_creacion || producto.fechacreacion}}</td>
+        <td>
+          <button *ngIf="role === 'admin'" class="btn-accion editar" (click)="abrirModalEditar(producto)"><span class="material-icons">edit</span></button>
+          <button *ngIf="role === 'admin'" class="btn-accion eliminar" (click)="eliminarProducto(producto.id)"><span class="material-icons">delete</span></button>
+        </td>
+
+      </tr>
+    </tbody>
   </table>
+
+  <!-- Controles de paginación -->
+  <div class="paginacion-bar">
+    <button (click)="cambiarPagina(paginaActual-1)" [disabled]="paginaActual === 1">Anterior</button>
+    <span>Página {{paginaActual}} de {{totalPaginas}}</span>
+    <button (click)="cambiarPagina(paginaActual+1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+  </div>
+
+  <!-- Modal de edición -->
+  <div class="modal" tabindex="-1" [ngClass]="{ 'show': modalAbierto }" *ngIf="modalAbierto">
+    <div class="modal-dialog">
+      <div class="modal-content modal-tarjeta">
+        <div class="modal-header">
+          <h5 class="modal-title"><span class="material-icons">edit</span> Editar producto</h5>
+          <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <div class="mb-2">
+              <label>Nombre</label>
+              <input type="text" class="form-control" [(ngModel)]="productoEdit.nombre" name="nombre" required />
+            </div>
+            <div class="mb-2">
+              <label>Descripción</label>
+              <input type="text" class="form-control" [(ngModel)]="productoEdit.descripcion" name="descripcion" />
+            </div>
+            <div class="mb-2">
+              <label>Precio Compra</label>
+              <input type="number" class="form-control" [(ngModel)]="productoEdit.precio_compra" name="precio_compra" />
+            </div>
+            <div class="mb-2">
+              <label>Precio Venta</label>
+              <input type="number" class="form-control" [(ngModel)]="productoEdit.precio_venta" name="precio_venta" />
+            </div>
+            <div class="mb-2">
+              <label>Cantidad</label>
+              <input type="number" class="form-control" [(ngModel)]="productoEdit.cantidad" name="cantidad" />
+            </div>
+            <div class="mb-2">
+              <label>Categoría</label>
+              <select class="form-control" [(ngModel)]="productoEdit.categoria_id" name="categoria_id">
+                <option [ngValue]="null">Seleccione una categoría</option>
+                <option *ngFor="let cat of categorias" [ngValue]="cat.id">{{cat.nombre}}</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label>Proveedor</label>
+              <select class="form-control" [(ngModel)]="productoEdit.proveedor_id" name="proveedor_id">
+                <option [ngValue]="null">Seleccione un proveedor</option>
+                <option *ngFor="let prov of proveedores" [ngValue]="prov.id">{{prov.nombre}}</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+          <button type="button" class="btn-guardar" (click)="guardarEdicion()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

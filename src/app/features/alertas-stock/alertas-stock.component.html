@@ -1,0 +1,35 @@
+<div class="alerta-tarjeta">
+  <div class="alerta-header">
+    <button routerLink="/menu" class="btn-menu">Menú principal</button>
+    <h2><span class="material-icons">warning</span> Alertas de Stock Bajo</h2>
+  </div>
+  <div *ngIf="loading">Cargando alertas...</div>
+  <div *ngIf="error" class="error">{{error}}</div>
+  <div *ngIf="!loading && productosBajoStock.length === 0" class="mensaje-vacio">No hay productos con stock bajo.</div>
+  <div class="tabla-responsive">
+    <table *ngIf="!loading && productosBajoStock.length > 0" class="tabla-alerta">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Cantidad</th>
+          <th>Stock Mínimo</th>
+          <th>Categoría</th>
+          <th>Proveedor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of productosBajoStock">
+          <td>{{p.id}}</td>
+          <td>{{p.nombre}}</td>
+          <td>{{p.descripcion}}</td>
+          <td class="stock-bajo">{{p.cantidad}}</td>
+          <td>{{p.stock_minimo}}</td>
+          <td>{{p.categoria || p.categoria_id}}</td>
+          <td>{{p.proveedor || p.proveedor_id}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

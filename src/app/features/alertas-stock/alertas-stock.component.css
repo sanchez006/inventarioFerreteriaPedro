@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+.alerta-tarjeta {
+	background: #fff;
+	border-radius: 18px;
+	box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+	padding: 2.2rem 2rem 2rem 2rem;
+	margin: 2.5rem auto;
+	max-width: 900px;
+}
+.alerta-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1.5rem;
+}
+.alerta-header h2 {
+	font-size: 2rem;
+	font-weight: 800;
+	color: #b22222;
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+}
+.btn-menu {
+	background: linear-gradient(90deg, #ff9800 0%, #b22222 100%);
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	padding: 0.6rem 1.5rem;
+	font-size: 1.1rem;
+	font-weight: 600;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+	cursor: pointer;
+	transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+.btn-menu:hover {
+	background: linear-gradient(90deg, #b22222 0%, #ff9800 100%);
+	box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+	transform: translateY(-2px) scale(1.03);
+}
+.tabla-responsive {
+	width: 100%;
+	overflow-x: auto;
+}
+.tabla-alerta {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	background: #fff;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+	margin-top: 1rem;
+}
+.tabla-alerta thead tr {
+	background: #b22222;
+	color: #fff;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+}
+.tabla-alerta th, .tabla-alerta td {
+	padding: 0.7rem 0.6rem;
+	text-align: left;
+	font-size: 1.08rem;
+	color: #222;
+}
+.tabla-alerta tbody tr {
+	transition: background 0.15s;
+}
+.tabla-alerta tbody tr:hover {
+	background: #ffe0e0;
+}
+.stock-bajo { color: #b22222; font-weight: bold; }
+.error { color: #b22222; margin: 1rem 0; }
+.mensaje-vacio {
+	color: #b22222;
+	font-weight: 600;
+	margin-top: 1.5rem;
+	text-align: center;
+}

@@ -1,0 +1,58 @@
+<div class="menu-principal">
+  <h2>Menú principal</h2>
+  <div class="menu-cards">
+    <div class="menu-card orange">
+      <span class="material-icons">dashboard</span>
+      <h3>Dashboard</h3>
+      <button routerLink="/dashboard">Ir</button>
+    </div>
+    <div class="menu-card blue">
+      <span class="material-icons">inventory_2</span>
+      <h3>Productos</h3>
+      <button routerLink="/productos">Ver productos</button>
+      <button routerLink="/productos/nuevo" class="secondary">Agregar producto</button>
+    </div>
+    <div class="menu-card green">
+      <span class="material-icons">point_of_sale</span>
+      <h3>Ventas</h3>
+      <button routerLink="/ventas">Registrar venta</button>
+      <button routerLink="/reportes/ventas" class="secondary">Reporte de ventas</button>
+    </div>
+    <div class="menu-card teal">
+      <span class="material-icons">shopping_cart</span>
+      <h3>Compras</h3>
+      <button routerLink="/compras">Registrar compra</button>
+      <button routerLink="/reportes/compras" class="secondary">Reporte de compras</button>
+    </div>
+    <div class="menu-card red">
+      <span class="material-icons">warning</span>
+      <h3>Alertas de stock</h3>
+      <button routerLink="/alertas-stock">Ver alertas</button>
+    </div>
+    <div class="menu-card purple">
+      <span class="material-icons">local_shipping</span>
+      <h3>Proveedores</h3>
+      <button routerLink="/proveedores">Ver proveedores</button>
+    </div>
+    <div class="menu-card gray">
+      <span class="material-icons">category</span>
+      <h3>Categorías</h3>
+      <button routerLink="/categorias">Ver categorías</button>
+    </div>
+    <div class="menu-card yellow">
+      <span class="material-icons">request_quote</span>
+      <h3>Presupuestos</h3>
+      <button routerLink="/presupuestos">Ir a presupuestos</button>
+    </div>
+      <div *ngIf="isAdmin" class="menu-card brown">
+        <span class="material-icons">history</span>
+        <h3>Historial de movimientos</h3>
+        <button routerLink="/movimientos">Ver historial</button>
+      </div>
+      <div class="menu-card logout">
+        <span class="material-icons">logout</span>
+        <h3>Cerrar sesión</h3>
+        <button (click)="logout()" class="logout-btn">Salir</button>
+      </div>
+  </div>
+</div>

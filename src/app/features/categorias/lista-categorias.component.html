@@ -1,0 +1,43 @@
+<div class="categorias-tarjeta">
+  <div class="categorias-header">
+    <button routerLink="/menu" class="btn-menu">Menú principal</button>
+    <h2><span class="material-icons">category</span> Categorías</h2>
+  </div>
+  <form (ngSubmit)="guardarCategoria()" *ngIf="!categoriaEditando" class="form-tarjeta">
+    <h3>Agregar categoría</h3>
+    <div class="campo-form">
+      <label>Nombre</label>
+      <input [(ngModel)]="categoriaNueva.nombre" name="nombre" required>
+    </div>
+    <button type="submit" class="btn-agregar">Agregar</button>
+  </form>
+  <form (ngSubmit)="guardarCategoria()" *ngIf="categoriaEditando" class="form-tarjeta">
+    <h3>Editar categoría</h3>
+    <div class="campo-form">
+      <label>Nombre</label>
+      <input [(ngModel)]="categoriaEditando.nombre" name="nombreEdit" required>
+    </div>
+    <button type="submit" class="btn-guardar">Guardar</button>
+    <button type="button" class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+  </form>
+  <div *ngIf="mensaje" class="mensaje">{{mensaje}}</div>
+  <div class="tabla-responsive">
+    <table class="tabla-categorias">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of categorias">
+          <td>{{c.nombre}}</td>
+          <td>
+            <button *ngIf="role === 'admin'" class="btn-editar" (click)="editarCategoria(c)"><span class="material-icons">edit</span></button>
+            <button *ngIf="role === 'admin'" class="btn-eliminar" (click)="eliminarCategoria(c.id!)"><span class="material-icons">delete</span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

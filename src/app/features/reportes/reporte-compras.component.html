@@ -1,0 +1,85 @@
+<div class="reporte-tarjeta">
+  <div class="reporte-header">
+    <button routerLink="/menu" class="btn-menu">Menú principal</button>
+    <h2><span class="material-icons">shopping_cart</span> Reporte de Compras</h2>
+  </div>
+  <form (ngSubmit)="consultar()" class="filtros-tarjeta">
+    <div class="filtro-campo">
+      <label>Mes</label>
+      <input type="month" [(ngModel)]="mesSeleccionado" name="mesSeleccionado" (change)="cambiarMes()">
+    </div>
+    <div class="filtro-campo">
+      <label>Desde</label>
+      <input type="date" [(ngModel)]="desde" name="desde" required>
+    </div>
+    <div class="filtro-campo">
+      <label>Hasta</label>
+      <input type="date" [(ngModel)]="hasta" name="hasta" required>
+    </div>
+    <div class="filtro-campo">
+      <label>Producto</label>
+      <input type="text" [(ngModel)]="filtroProducto" name="filtroProducto" (input)="aplicarFiltro()" placeholder="Buscar producto">
+    </div>
+    <button type="submit" class="btn-consultar">Consultar</button>
+    <button type="button" class="btn-pdf" (click)="exportarPDF()">Exportar a PDF</button>
+  </form>
+
+  <div class="tabla-responsive">
+  <table #tablaCompras *ngIf="compras.length > 0" class="tabla-reporte">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Usuario</th>
+        <th>Total (Q)</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let c of comprasPagina; let i = index">
+        <tr>
+          <td>{{c.id}}</td>
+          <td>{{c.fecha | date:'short'}}</td>
+          <td>{{c.usuario || '—'}}</td>
+          <td>{{c.total_compra | currency:'Q':'symbol':'1.2-2':'es-GT'}}</td>
+          <td><button (click)="verDetalle(c, i)">{{detalleIndex === i ? 'Ocultar' : 'Ver detalle'}}</button></td>
+        </tr>
+        <tr *ngIf="detalleIndex === i">
+          <td colspan="4">
+            <div *ngIf="detalleCompra">
+              <strong>Productos comprados:</strong>
+              <table class="tabla-detalle">
+                <thead>
+                  <tr><th>Producto</th><th>Cantidad</th><th>Precio unitario</th><th>Subtotal</th></tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of detalleCompra">
+                    <td>{{d.producto}}</td>
+                    <td>{{d.cantidad}}</td>
+                    <td>{{d.precio_unitario | currency:'Q':'symbol':'1.2-2':'es-GT'}}</td>
+                    <td>{{d.cantidad * d.precio_unitario | currency:'Q':'symbol':'1.2-2':'es-GT'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div *ngIf="detalleCargando">Cargando detalle...</div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2"><strong>Total general</strong></td>
+        <td colspan="2"><strong>{{ totalGeneral | currency:'Q':'symbol':'1.2-2':'es-GT' }}</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+  <div *ngIf="compras.length === 0 && consultado" class="mensaje-vacio">No hay compras en el rango seleccionado.</div>
+  <!-- Paginación -->
+  <div class="paginacion" *ngIf="totalPaginas > 1">
+    <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">&lt;</button>
+    <span>Página {{paginaActual}} de {{totalPaginas}}</span>
+    <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">&gt;</button>
+  </div>
+</div>

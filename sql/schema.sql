@@ -1,3 +1,18 @@
+-- Presupuestos y detalle
+CREATE TABLE IF NOT EXISTS presupuestos (
+  id SERIAL PRIMARY KEY,
+  cliente VARCHAR(200) NOT NULL,
+  total NUMERIC(12,2) DEFAULT 0,
+  fecha TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS detalle_presupuesto (
+  id SERIAL PRIMARY KEY,
+  presupuesto_id INTEGER REFERENCES presupuestos(id) ON DELETE CASCADE,
+  producto_id INTEGER REFERENCES productos(id),
+  cantidad INTEGER,
+  precio_unitario NUMERIC(12,2)
+);
 -- Esquema mínimo para Inventario
 -- Roles y usuarios
 CREATE TABLE IF NOT EXISTS roles (

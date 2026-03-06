@@ -1,30 +1,47 @@
-<div class="container">
-  <h2>Agregar producto</h2>
-  <form (ngSubmit)="submit()">
-    <div>
+<div class="nuevo-producto-tarjeta">
+  <div class="nuevo-header">
+    <button routerLink="/menu" class="btn-menu">Menú principal</button>
+    <h2><span class="material-icons">add_box</span> Agregar producto</h2>
+  </div>
+  <form (ngSubmit)="submit()" class="form-tarjeta">
+    <div class="campo-form">
       <label>Nombre</label>
       <input [(ngModel)]="nombre" name="nombre" required />
     </div>
-    <div>
-      <label>Descripcion</label>
+    <div class="campo-form">
+      <label>Descripción</label>
       <input [(ngModel)]="descripcion" name="descripcion" />
     </div>
-    <div>
+    <div class="campo-form">
       <label>Precio compra</label>
       <input type="number" [(ngModel)]="precio_compra" name="precio_compra" />
     </div>
-    <div>
+    <div class="campo-form">
       <label>Precio venta</label>
       <input type="number" [(ngModel)]="precio_venta" name="precio_venta" />
     </div>
-    <div>
+    <div class="campo-form">
       <label>Cantidad</label>
       <input type="number" [(ngModel)]="cantidad" name="cantidad" />
     </div>
-    <div>
-      <label>Stock minimo</label>
+    <div class="campo-form">
+      <label>Stock mínimo</label>
       <input type="number" [(ngModel)]="stock_minimo" name="stock_minimo" />
     </div>
-    <button type="submit">Crear</button>
+    <div class="campo-form">
+      <label>Categoría</label>
+      <select [(ngModel)]="categoria_id" name="categoria_id" required>
+        <option [ngValue]="null">Seleccione una categoría</option>
+        <option *ngFor="let cat of categorias" [ngValue]="cat.id">{{cat.nombre}}</option>
+      </select>
+    </div>
+    <div class="campo-form">
+      <label>Proveedor</label>
+      <select [(ngModel)]="proveedor_id" name="proveedor_id" required>
+        <option [ngValue]="null">Seleccione un proveedor</option>
+        <option *ngFor="let prov of proveedores" [ngValue]="prov.id">{{prov.nombre}}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn-crear">Crear</button>
   </form>
 </div>

@@ -5,10 +5,14 @@ import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+    getRole(): string {
+      const user = this.getUser();
+      return user && user.rol ? user.rol : '';
+    }
   private apiUrl = 'http://localhost:3001';
   private tokenKey = 'token';
   private userKey = 'user';
-  private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
+  private loggedIn = new BehaviorSubject<boolean>(this.hasValidToken());
 
   constructor(private http: HttpClient) {}
 
@@ -31,6 +35,8 @@ export class AuthService {
   }
 
   isLoggedIn(): Observable<boolean> {
+    // Cada vez que se suscriba, verifica el token
+    this.loggedIn.next(this.hasValidToken());
     return this.loggedIn.asObservable();
   }
 
@@ -43,7 +49,22 @@ export class AuthService {
     return user ? JSON.parse(user) : null;
   }
 
-  private hasToken(): boolean {
-    return !!localStorage.getItem(this.tokenKey);
+  private hasValidToken(): boolean {
+    const token = localStorage.getItem(this.tokenKey);
+    if (!token) return false;
+    try {
+      // Decodificar el payload del JWT
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      // Revisar expiración (exp en segundos)
+      if (!payload.exp) return false;
+      const now = Math.floor(Date.now() / 1000);
+      return payload.exp > now;
+    } catch (e) {
+      return false;
+    }
+  }
+  // Llamar esto después de cualquier acción que pueda cambiar el token
+  refreshLoginStatus() {
+    this.loggedIn.next(this.hasValidToken());
   }
 }

@@ -1,0 +1,47 @@
+<div class="movimientos-tarjeta">
+	<div class="reporte-header">
+		<button routerLink="/menu" class="btn-menu">Menú principal</button>
+		<h2><span class="material-icons">history</span> Historial de Movimientos</h2>
+	</div>
+	<form (ngSubmit)="cargarMovimientos()" class="filtros-tarjeta filtros-inline">
+		<input type="text" [(ngModel)]="filtro" name="filtro" class="input-filtro" placeholder="Buscar producto o descripción" (input)="aplicarFiltro()">
+		<input type="month" [(ngModel)]="mesSeleccionado" name="mesSeleccionado" (change)="cambiarMes()" class="input-filtro">
+		<input type="date" [(ngModel)]="desde" name="desde" class="input-filtro">
+		<input type="date" [(ngModel)]="hasta" name="hasta" class="input-filtro">
+		<button type="button" class="btn-limpiar" (click)="filtro='';desde='';hasta='';mesSeleccionado='';aplicarFiltro()">Limpiar</button>
+		<button type="submit" class="btn-consultar"><span class="material-icons">search</span></button>
+	</form>
+
+	<div class="tabla-responsive">
+		<table *ngIf="movimientosFiltrados.length > 0" class="tabla-movimientos">
+			<thead>
+				<tr>
+					<th>Fecha</th>
+					<th>Usuario</th>
+					<th>Producto</th>
+					<th>Tipo</th>
+					<th>Cantidad</th>
+					<th>Descripción</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let m of movimientosPagina">
+					<td>{{m.fecha | date:'yyyy-MM-dd HH:mm'}}</td>
+					<td>{{m.usuario}}</td>
+					<td>{{m.producto}}</td>
+					<td>{{m.tipo}}</td>
+					<td>{{m.cantidad}}</td>
+					<td>{{m.descripcion}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div *ngIf="movimientosFiltrados.length === 0 && mensaje" class="vacio">{{mensaje}}</div>
+
+	<!-- Paginación -->
+	<div class="paginacion" *ngIf="totalPaginas > 1">
+		<button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1" [ngClass]="{ 'disabled': paginaActual === 1 }">Anterior</button>
+		<span>Página {{paginaActual}} de {{totalPaginas}}</span>
+		<button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas" [ngClass]="{ 'disabled': paginaActual === totalPaginas }">Siguiente</button>
+	</div>
+</div>

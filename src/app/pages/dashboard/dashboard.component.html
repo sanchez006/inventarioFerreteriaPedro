@@ -1,9 +1,22 @@
 <div class="dashboard">
-  <h2>Menú principal</h2>
-  <div class="menu">
-    <button (click)="go('/productos')">Ver productos</button>
-    <button (click)="go('/ventas')">Registrar venta</button>
-    <button (click)="go('/compras')">Registrar compra</button>
-    <button (click)="go('/productos/nuevo')">Agregar producto</button>
+  <button [routerLink]="'/menu'" style="margin-bottom:2rem; display:inline-block; padding:0.5rem 1.2rem; border:1px solid #222; border-radius:6px; background:#fff; color:#222; font-size:1.1rem; font-weight:500; text-decoration:none; cursor:pointer;">Menú principal</button>
+  <h2>Dashboard</h2>
+  <div class="graficas-dashboard" style="margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 2rem; justify-content: flex-start;">
+    <div style="max-width: 500px; min-width: 320px;">
+      <h3>Ventas por mes</h3>
+      <canvas baseChart [data]="ventasChartData" [type]="'bar'"></canvas>
+    </div>
+    <div style="max-width: 500px; min-width: 320px;">
+      <h3>Compras por mes</h3>
+      <canvas baseChart [data]="comprasChartData" [type]="'bar'"></canvas>
+    </div>
+    <div style="max-width: 500px; min-width: 320px;">
+      <h3>Productos más vendidos</h3>
+      <canvas baseChart [data]="masVendidosChartData" [type]="'pie'"></canvas>
+    </div>
+    <div style="max-width: 500px; min-width: 320px;">
+      <h3>Stock bajo</h3>
+      <canvas baseChart [data]="stockBajoChartData" [type]="'bar'"></canvas>
+    </div>
   </div>
 </div>

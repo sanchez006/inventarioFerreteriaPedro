@@ -1,0 +1,73 @@
+<div class="proveedores-tarjeta">
+  <div class="proveedores-header">
+    <button routerLink="/menu" class="btn-menu">Menú principal</button>
+    <h2><span class="material-icons">local_shipping</span> Proveedores</h2>
+  </div>
+  <form (ngSubmit)="guardarProveedor()" *ngIf="!proveedorEditando" class="form-tarjeta">
+    <h3>Agregar proveedor</h3>
+    <div class="campo-form">
+      <label>Nombre</label>
+      <input [(ngModel)]="proveedorNuevo.nombre" name="nombre" required>
+    </div>
+    <div class="campo-form">
+      <label>Contacto</label>
+      <input [(ngModel)]="proveedorNuevo.contacto" name="contacto" required>
+    </div>
+    <div class="campo-form">
+      <label>Teléfono</label>
+      <input [(ngModel)]="proveedorNuevo.telefono" name="telefono" required>
+    </div>
+    <div class="campo-form">
+      <label>Dirección</label>
+      <input [(ngModel)]="proveedorNuevo.direccion" name="direccion" required>
+    </div>
+    <button type="submit" class="btn-agregar">Agregar</button>
+  </form>
+  <form (ngSubmit)="guardarProveedor()" *ngIf="proveedorEditando" class="form-tarjeta">
+    <h3>Editar proveedor</h3>
+    <div class="campo-form">
+      <label>Nombre</label>
+      <input [(ngModel)]="proveedorEditando.nombre" name="nombreEdit" required>
+    </div>
+    <div class="campo-form">
+      <label>Contacto</label>
+      <input [(ngModel)]="proveedorEditando.contacto" name="contactoEdit" required>
+    </div>
+    <div class="campo-form">
+      <label>Teléfono</label>
+      <input [(ngModel)]="proveedorEditando.telefono" name="telefonoEdit" required>
+    </div>
+    <div class="campo-form">
+      <label>Dirección</label>
+      <input [(ngModel)]="proveedorEditando.direccion" name="direccionEdit" required>
+    </div>
+    <button type="submit" class="btn-guardar">Guardar</button>
+    <button type="button" class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+  </form>
+  <div *ngIf="mensaje" class="mensaje">{{mensaje}}</div>
+  <div class="tabla-responsive">
+    <table class="tabla-proveedores">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Contacto</th>
+          <th>Teléfono</th>
+          <th>Dirección</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of proveedores">
+          <td>{{p.nombre}}</td>
+          <td>{{p.contacto}}</td>
+          <td>{{p.telefono}}</td>
+          <td>{{p.direccion}}</td>
+          <td>
+            <button *ngIf="role === 'admin'" class="btn-editar" (click)="editarProveedor(p)"><span class="material-icons">edit</span></button>
+            <button *ngIf="role === 'admin'" class="btn-eliminar" (click)="eliminarProveedor(p.id!)"><span class="material-icons">delete</span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

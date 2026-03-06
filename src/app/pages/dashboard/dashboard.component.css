@@ -1,3 +1,29 @@
-.dashboard { padding: 24px; }
+.dashboard { padding: 24px; position: relative; }
+.dashboard button[routerLink] {
+	position: relative;
+	z-index: 9999;
+	margin-bottom: 3rem;
+	display: inline-block;
+	pointer-events: auto;
+	padding: 0.7rem 2rem;
+	font-size: 1.1rem;
+	font-weight: 600;
+	border: none;
+	border-radius: 8px;
+	background: linear-gradient(90deg, #ff9800 0%, #388e3c 100%);
+	color: #fff;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+	cursor: pointer;
+	transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+.dashboard button[routerLink]:hover {
+	background: linear-gradient(90deg, #388e3c 0%, #1976d2 100%);
+	box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+	transform: translateY(-2px) scale(1.03);
+}
+.graficas-dashboard {
+	position: relative;
+	z-index: 1;
+}
 .menu { display:flex; gap:12px; flex-wrap:wrap }
 .menu button { padding:10px 16px; border-radius:6px; cursor:pointer }

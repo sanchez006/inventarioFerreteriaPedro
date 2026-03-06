@@ -1,0 +1,155 @@
+/* Estilos modernos y responsivos para el menú principal */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+.menu-principal {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  background: #fafbfc;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.menu-principal h2 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 2.5rem;
+  color: #ffd600;
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 2px #0008;
+  background: #1a237e;
+  padding: 0.7rem 1.2rem;
+  border-radius: 12px;
+  display: inline-block;
+}
+.menu-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem;
+  width: 100%;
+  justify-items: center;
+}
+.menu-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 220px;
+  min-height: 210px;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.menu-card:hover {
+  box-shadow: 0 8px 32px 0 rgba(25,118,210,0.18);
+  transform: translateY(-4px) scale(1.03);
+}
+.menu-card .material-icons {
+  font-size: 3.2rem;
+  margin-bottom: 0.7rem;
+  opacity: 0.85;
+}
+.menu-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #222;
+  letter-spacing: 0.5px;
+}
+.menu-card button {
+  margin: 0.2rem 0.2rem 0 0;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: #f5f5f5;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+  outline: none;
+  margin-bottom: 0.3rem;
+}
+.menu-card button.secondary {
+  background: #e3e3e3;
+  color: #1976d2;
+}
+.menu-card button:hover {
+  background: #1976d2;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(25,118,210,0.13);
+  transform: translateY(-2px) scale(1.04);
+}
+.menu-card.orange { border-top: 6px solid #ff9800; }
+.menu-card.blue { border-top: 6px solid #1976d2; }
+.menu-card.green { border-top: 6px solid #388e3c; }
+.menu-card.teal { border-top: 6px solid #009688; }
+.menu-card.red { border-top: 6px solid #b22222; }
+.menu-card.purple { border-top: 6px solid #7b1fa2; }
+.menu-card.gray { border-top: 6px solid #607d8b; }
+
+.menu-card.logout {
+  background: #ffebee;
+  border-top: 6px solid #c62828;
+  color: #c62828;
+}
+.menu-card.logout .material-icons {
+  color: #c62828;
+}
+.logout-btn {
+  background: #c62828;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  margin-top: 0.7rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover {
+  background: #b71c1c;
+}
+
+@media (max-width: 900px) {
+  .menu-principal {
+    padding: 1rem;
+  }
+  .menu-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .menu-card {
+    min-width: 0;
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+  .menu-principal {
+    padding: 1rem;
+  }
+  .menu {
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+  .menu button, .menu a {
+    padding: 1rem 0.7rem;
+    font-size: 1rem;
+    min-width: 120px;
+    min-height: 60px;
+  }
+}
+@media (max-width: 600px) {
+  .menu {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+  .menu-principal h2 {
+    font-size: 2rem;
+  }
+}
