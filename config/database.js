@@ -7,6 +7,7 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD || 'inventariopedro',
     database: process.env.DB_NAME || 'inventario',
     port: parseInt(process.env.DB_PORT, 10) || 5432,
+    ssl: { rejectUnauthorized: false }
 });
 
 pool.on('connect', () => {
