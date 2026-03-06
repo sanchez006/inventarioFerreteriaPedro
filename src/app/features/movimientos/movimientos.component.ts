@@ -55,7 +55,7 @@ export class MovimientosComponent implements OnInit {
   }
 
   cargarMovimientos() {
-    this.http.get<any[]>(`http://localhost:3001/movimientos?desde=${this.desde}&hasta=${this.hasta}`).subscribe({
+    this.http.get<any[]>(`https://inventarioferreteriapedro.onrender.com/movimientos?desde=${this.desde}&hasta=${this.hasta}`).subscribe({
       next: (data) => {
         this.movimientos = data;
         this.aplicarFiltro();

@@ -116,7 +116,7 @@ export class RegistrarVentaComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:3001/productos').subscribe({
+    this.http.get<any[]>('https://inventarioferreteriapedro.onrender.com/productos').subscribe({
       next: (data) => {
         this.productos = data;
         this.ventaItems.forEach((item, i) => {
@@ -162,7 +162,7 @@ export class RegistrarVentaComponent implements OnInit {
       this.mensaje = 'Agrega al menos un producto';
       return;
     }
-    this.http.post('http://localhost:3001/ventas', { productos }).subscribe({
+    this.http.post('https://inventarioferreteriapedro.onrender.com/ventas', { productos }).subscribe({
       next: () => {
         this.mensaje = 'Venta registrada correctamente';
         this.ventaItems = [{ producto_id: '', cantidad: 1, precio_unitario: 0 }];

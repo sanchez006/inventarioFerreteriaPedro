@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CatalogosService {
-  private categoriasUrl = 'http://localhost:3001/categorias';
-  private proveedoresUrl = 'http://localhost:3001/proveedores';
+  private categoriasUrl = 'https://inventarioferreteriapedro.onrender.com/categorias';
+  private proveedoresUrl = 'https://inventarioferreteriapedro.onrender.com/proveedores';
 
   constructor(private http: HttpClient) {}
 

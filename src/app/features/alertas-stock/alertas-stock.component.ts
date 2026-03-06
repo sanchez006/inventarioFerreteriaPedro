@@ -24,7 +24,7 @@ export class AlertasStockComponent implements OnInit {
     this.error = '';
     this.auth.isLoggedIn().subscribe(isLogged => {
       if (isLogged) {
-        this.http.get<any[]>('http://localhost:3001/alertas/stock-bajo').subscribe({
+        this.http.get<any[]>('https://inventarioferreteriapedro.onrender.com/alertas/stock-bajo').subscribe({
           next: (data) => {
             this.productosBajoStock = data;
             this.loading = false;

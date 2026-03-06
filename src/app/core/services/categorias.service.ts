@@ -9,7 +9,7 @@ export interface Categoria {
 
 @Injectable({ providedIn: 'root' })
 export class CategoriasService {
-  private apiUrl = 'http://localhost:3001/categorias';
+  private apiUrl = 'https://inventarioferreteriapedro.onrender.com/categorias';
 
   constructor(private http: HttpClient) {}
 

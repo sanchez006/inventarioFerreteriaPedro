@@ -91,11 +91,11 @@ export class RegistrarCompraComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:3001/productos').subscribe({
+    this.http.get<any[]>('https://inventarioferreteriapedro.onrender.com/productos').subscribe({
       next: (data) => this.productos = data,
       error: () => this.mensaje = 'Error al cargar productos'
     });
-    this.http.get<any[]>('http://localhost:3001/proveedores').subscribe({
+    this.http.get<any[]>('https://inventarioferreteriapedro.onrender.com/proveedores').subscribe({
       next: (data) => this.proveedores = data,
       error: () => this.mensaje = 'Error al cargar proveedores'
     });
@@ -135,7 +135,7 @@ export class RegistrarCompraComponent implements OnInit {
       this.mensaje = 'Agrega al menos un producto';
       return;
     }
-    this.http.post('http://localhost:3001/compras', { productos, proveedor_id: this.proveedor_id }).subscribe({
+    this.http.post('https://inventarioferreteriapedro.onrender.com/compras', { productos, proveedor_id: this.proveedor_id }).subscribe({
       next: () => {
         this.mensaje = 'Compra registrada correctamente';
         this.compraItems = [{ producto_id: '', cantidad: 1, precio_unitario: 0 }];

@@ -76,7 +76,7 @@ export class ReporteComprasComponent {
 
   consultar() {
     this.consultado = true;
-    this.http.get<any[]>(`http://localhost:3001/reporte/compras?desde=${this.desde}&hasta=${this.hasta}`).subscribe({
+    this.http.get<any[]>(`https://inventarioferreteriapedro.onrender.com/reporte/compras?desde=${this.desde}&hasta=${this.hasta}`).subscribe({
       next: (data) => {
         this.compras = data;
         this.aplicarFiltro();
@@ -122,7 +122,7 @@ export class ReporteComprasComponent {
     }
     this.detalleCargando = true;
     this.detalleIndex = i;
-    this.http.get<any[]>(`http://localhost:3001/compras/${compra.id}/detalle`).subscribe({
+    this.http.get<any[]>(`https://inventarioferreteriapedro.onrender.com/compras/${compra.id}/detalle`).subscribe({
       next: (data) => {
         this.detalleCompra = data;
         this.detalleCargando = false;
