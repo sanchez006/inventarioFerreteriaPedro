@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
-  private api = 'http://localhost:3001';
+  private api = 'https://inventarioferreteriapedro.onrender.com';
 
   constructor(private http: HttpClient) {}
 

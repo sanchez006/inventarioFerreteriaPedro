@@ -17,7 +17,7 @@ export interface Producto{
   providedIn: 'root'
 })
 export class ProductoService {
-  private apiURL = 'http://localhost:3001/productos';
+  private apiURL = 'https://inventarioferreteriapedro.onrender.com/productos';
 
   constructor(private http: HttpClient) {}
 

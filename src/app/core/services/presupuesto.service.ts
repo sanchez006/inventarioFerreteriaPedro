@@ -21,7 +21,7 @@ export interface Presupuesto {
 
 @Injectable({ providedIn: 'root' })
 export class PresupuestoService {
-  private apiUrl = 'http://localhost:3001/presupuestos';
+  private apiUrl = 'https://inventarioferreteriapedro.onrender.com/presupuestos';
 
   constructor(private http: HttpClient) {}
 

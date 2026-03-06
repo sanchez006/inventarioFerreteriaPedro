@@ -9,7 +9,7 @@ export class AuthService {
       const user = this.getUser();
       return user && user.rol ? user.rol : '';
     }
-  private apiUrl = 'http://localhost:3001';
+  private apiUrl = 'https://inventarioferreteriapedro.onrender.com';
   private tokenKey = 'token';
   private userKey = 'user';
   private loggedIn = new BehaviorSubject<boolean>(this.hasValidToken());

@@ -12,7 +12,7 @@ export interface Proveedor {
 
 @Injectable({ providedIn: 'root' })
 export class ProveedorService {
-  private apiUrl = 'http://localhost:3001/proveedores';
+  private apiUrl = 'https://inventarioferreteriapedro.onrender.com/proveedores';
 
   constructor(private http: HttpClient) {}
 
